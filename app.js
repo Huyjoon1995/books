@@ -15,7 +15,7 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var api = require('./routes/api');
+var books = require('./routes/books');
 
 var app = express();
 
@@ -81,7 +81,7 @@ app.get('*', function(req, res, next) { // asterick applies to all views
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/api', api);
+app.use('/books', books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
