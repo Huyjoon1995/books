@@ -4,9 +4,49 @@ html(lang="en")
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    meta(name="description", content="Trade your books with people from all over the world for free!")
+    meta(name="description", content="Book Swap Manager. Add your entire book collection online and swap with fellow bookworms.")
     meta(name="author", content="Stephen Mayeux")
-    title Books Abound!
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title Stephen's Full Stack Voting App
+    // Bootstrap core CSS and custom styles
+    link(href="/stylesheets/bootstrap.css", rel="stylesheet")
+    link(href="/stylesheets/style.css", rel="stylesheet")
   body
-    block content
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="/") Book Swap Manager
+        #navbar.navbar-collapse.collapse
+          form.navbar-form.navbar-right(method='post', action='/', enctype='multipart/form-data')
+            if !user
+              .form-group
+                input.form-control(name="username", type="text", placeholder="Username")
+              .form-group
+                input.form-control(name="password", type="password", placeholder="Password")
+              button.btn.btn-success(name="submit", type="submit", id="layoutsigninbtn") Sign in
+            else
+              a(href="/users/logout" class="btn btn-success" role="button") Logout
+          ul.nav.navbar-nav
+            if !user
+              li
+                a(href="/books/allbooks") View Books
+              li
+                a(href="/users/register") Register
+            else
+              li
+                a(href="/books/mybooks") My Books
+              li
+                a(href="/books/allbooks") View Books
+              li
+                a(href="/books/requests") Requests
+              li
+                a(href="/users/profile") Profile
+    div
+      !=messages()
+      block content
+  script(src='/javascripts/jquery-1.12.0.min.js')
+  script(src='/javascripts/bootstrap.js')

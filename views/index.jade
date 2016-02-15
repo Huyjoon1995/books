@@ -1,5 +1,28 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .jumbotron
+    .container
+      h1.intro Never Stop Reading
+      p.intro
+        | Books contain knowledge. Knowledge is power. Power to the people! Add your books to share and request books from other people.
+      p
+        a.btn.btn-primary.btn-lg(href="/users/register", role="button") Sign Up Now &#187;
+        a.btn.btn-default.btn-lg(href="/books/allbooks", role="button", id="indexbtn") View Books &#187;
+  .container
+    .row
+      .col-md-4
+        h2 Share
+        p
+          | You can share your books with other people. There is no tedious data entry. Our app uses the Google Books API, so all you have to do is search by for titles and anyone can see what books you have to offer.
+      .col-md-4
+        h2 Request
+        p
+          | Browse the community's books and see what people have on their bookshelves. If you like something you see, request a book!
+      .col-md-4
+        h2 Manage
+        p
+          | Easily manage your requests as well as other people's requests. You can view requests and decide whether to accept or reject them and also leave a comment.
+    hr
+    footer
+      p &#169; 2015 Stephen Mayeux
