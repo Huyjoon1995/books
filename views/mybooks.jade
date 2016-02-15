@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .container
+    h1 Add New Book
+    p.lead Add a new book to your collection by using the form below.
+    hr
+    form(method="post", action="/books/search", enctype="multipart/form-data")
+        .form-group
+            label Book Title
+            input.form-control(name="title", type="text", placeholder="Book Title, e.g. Moby Dick")
+        input.btn.btn-primary(name="submit", type="submit", value="Search")
+    if results
+      each result, i in results
+        .col-xs-4
+          if result.title
+            p #{result.title}
+            img(src="#{result.thumbnail}")
+          else
+            p.lead There are no results. Try again.
+        

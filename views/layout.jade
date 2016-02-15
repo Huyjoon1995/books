@@ -29,7 +29,7 @@ html(lang="en")
                 input.form-control(name="password", type="password", placeholder="Password")
               button.btn.btn-success(name="submit", type="submit", id="layoutsigninbtn") Sign in
             else
-              a(href="/users/logout" class="btn btn-success" role="button") Logout
+              a(href="/users/logout" class="btn btn-success" role="button") Logout #{user.username}
           ul.nav.navbar-nav
             if !user
               li

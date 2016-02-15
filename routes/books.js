@@ -2,11 +2,15 @@ var express = require('express');
 var router = express.Router();
 var books = require('google-books-search');
 
-/* GET users listing. */
-router.get('/:book', function(req, res, next) {
-  books.search(req.params.book, function(err, data) {
+router.get('/mybooks', function(req, res, next) {
+  res.render('mybooks');
+});
+
+router.post('/search', function(req, res, next) {
+  books.search(req.body.title, function(err, data) {
     if (!err) {
-      res.send(JSON.stringify(data, null, 4));
+      console.log(data);
+      res.render('mybooks', {'results': data});
     } else {
       res.send('there was an error!!');
     }
