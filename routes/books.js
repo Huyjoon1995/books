@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var books = require('google-books-search');
 
-router.get('/mybooks', function(req, res, next) {
+router.get('/mybooks', ensureAuthenticated, function(req, res, next) {
   res.render('mybooks');
 });
 
@@ -16,5 +18,14 @@ router.post('/search', function(req, res, next) {
     }
   });
 });
+
+/* Passport function for access control. */
+function ensureAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next();
+  }
+ req.flash('info','Please sign in or register to view this page.');
+ res.redirect('/users/register');
+}
 
 module.exports = router;
