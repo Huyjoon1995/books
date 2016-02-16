@@ -39,6 +39,14 @@ router.post('/addbook', function(req, res, next) {
   });
 });
 
+router.get('/delete/:id', function(req, res, next) {
+  Book.deleteBook(req.params.id, function(err, doc) {
+    if (err) throw err;
+    console.log('Book was removed');
+    res.redirect('/books/mybooks');
+  });
+});
+
 /* Passport function for access control. */
 function ensureAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {

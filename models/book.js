@@ -19,3 +19,7 @@ module.exports.saveBook = function(newBook, callback) {
 module.exports.getUserBooks = function(query, callback) {
   Book.find(query, callback);
 };
+
+module.exports.deleteBook = function(query, callback) {
+  Book.findByIdAndRemove(query, callback);
+};

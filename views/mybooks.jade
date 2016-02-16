@@ -7,7 +7,11 @@ block content
     hr
     if books
       each book, i in books
-        p #{book.title}
+        div.row
+          div.col-xs-4
+            p #{book.title}
+          div.col-xs-4
+            a.btn.btn-danger.btn-sm(href="/books/delete/#{book._id}", role="button") Remove
     h1 Add New Book
     p.lead Add a new book to your collection by using the form below.
     hr
@@ -16,18 +20,19 @@ block content
             label Book Title
             input.form-control(name="title", type="text", placeholder="Book Title, e.g. Moby Dick")
         input.btn.btn-primary(name="submit", type="submit", value="Search")
-    if results
-      each result, i in results
-        div.col-xs-4
-          if result.title
-            p #{result.title}
-            img(src="#{result.thumbnail}")
-            form(method="post", action="/books/addbook", enctype="multipart/form-data")
-                input(type="hidden", value="#{result.title}", name="title")
-                input(type="hidden", value="#{result.authors}", name="authors")
-                input(type="hidden", value="#{result.pageCount}", name="pageCount")
-                input(type="hidden", value="#{result.thumbnail}", name="thumbnail")
-                input.btn.btn-primary(name="submit", type="submit", value="Add To Collection")
-          else
-            p.lead There are no results. Try again.
+    div.row
+      if results
+        each result, i in results
+          div.col-xs-4
+            if result.title
+              p #{result.title}
+              img(src="#{result.thumbnail}")
+              form(method="post", action="/books/addbook", enctype="multipart/form-data")
+                  input(type="hidden", value="#{result.title}", name="title")
+                  input(type="hidden", value="#{result.authors}", name="authors")
+                  input(type="hidden", value="#{result.pageCount}", name="pageCount")
+                  input(type="hidden", value="#{result.thumbnail}", name="thumbnail")
+                  input.btn.btn-primary(name="submit", type="submit", value="Add To Collection")
+            else
+              p.lead There are no results. Try again.
         
