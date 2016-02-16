@@ -15,3 +15,7 @@ var Book = module.exports = mongoose.model('Book', BookSchema);
 module.exports.saveBook = function(newBook, callback) {
   newBook.save(callback);
 };
+
+module.exports.getUserBooks = function(query, callback) {
+  Book.find(query, callback);
+};

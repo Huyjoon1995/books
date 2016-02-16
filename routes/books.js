@@ -6,13 +6,17 @@ var books = require('google-books-search');
 var Book = require('../models/book');
 
 router.get('/mybooks', ensureAuthenticated, function(req, res, next) {
-  res.render('mybooks');
+  Book.getUserBooks({owner: req.user.username}, function(err, books) {
+      res.render('mybooks', {'books': books});
+  });
 });
 
-router.post('/search', function(req, res, next) {
+router.post('/mybooks', function(req, res, next) {
   books.search(req.body.title, function(err, data) {
     if (!err) {
-      res.render('mybooks', {'results': data});
+      Book.getUserBooks({owner: req.user.username}, function(err, books) {
+          res.render('mybooks', {'books': books, 'results': data});
+      });
     } else {
       res.send('there was an error!!');
     }
@@ -31,8 +35,6 @@ router.post('/addbook', function(req, res, next) {
   });
   Book.saveBook(newBook, function(err, book) {
     if (err) throw err;
-    req.flash('success', 'You have added a new book to your collection!');
-    res.location('/books/mybooks');
     res.redirect('/books/mybooks');
   });
 });
