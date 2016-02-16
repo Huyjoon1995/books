@@ -42,7 +42,11 @@ router.post('/register', function(req, res, next) {
     } else {
       var newUser = new User({
         username: username,
-        password: password
+        password: password,
+        fullName: '',
+        city: '',
+        state: '',
+        favoriteQuote: ''
       });
     }
 

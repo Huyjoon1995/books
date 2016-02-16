@@ -3,7 +3,11 @@ var bcrypt = require('bcrypt');
 
 var UserSchema = mongoose.Schema({
   username: String,
-  password: {type: String, required: true, bcrypt: true}
+  password: {type: String, required: true, bcrypt: true},
+  fullName: String,
+  city: String,
+  state: String,
+  favoriteQuote: String
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);
