@@ -16,6 +16,12 @@ block content
           if result.title
             p #{result.title}
             img(src="#{result.thumbnail}")
+            form(method="post", action="/books/addbook", enctype="multipart/form-data")
+                input(type="hidden", value="#{result.title}", name="title")
+                input(type="hidden", value="#{result.authors}", name="authors")
+                input(type="hidden", value="#{result.pageCount}", name="pageCount")
+                input(type="hidden", value="#{result.thumbnail}", name="thumbnail")
+                input.btn.btn-primary(name="submit", type="submit", value="Add To Collection")
           else
             p.lead There are no results. Try again.
         

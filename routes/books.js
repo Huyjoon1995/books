@@ -19,6 +19,11 @@ router.post('/search', function(req, res, next) {
   });
 });
 
+router.post('/addbook', function(req, res, next) {
+  console.log(req.body.title + ' was clicked on the page!');
+  res.render('mybooks');
+});
+
 /* Passport function for access control. */
 function ensureAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
