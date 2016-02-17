@@ -70,7 +70,9 @@ router.post('/register', function(req, res, next) {
 });
 
 router.get('/profile', function(req, res, next) {
-  res.render('profile');
+  User.getUserByUsername(req.user.username, function(err, user) {
+    res.render('profile', {'userInfo': user});
+  });
 });
 
 /* Passport functions. Don't touch these */
