@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .container
+    h1 All Books
+    p.lead Browse the community and request their books!
+    hr
+    if books.length > 0
+      each book, i in books
+        div.row
+          div.col-xs-4
+            p #{book.title}
+    else
+      p The other registered users haven't added books yet.
+      

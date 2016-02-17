@@ -47,6 +47,15 @@ router.get('/delete/:id', function(req, res, next) {
   });
 });
 
+router.get('/allbooks', function(req, res, next) {
+  var query = {};
+  if (req.user) { query = {owner: {$ne: req.user.username}}; }
+  Book.getUserBooks(query, function(err, books) {
+    if (err) throw err;
+    res.render('allbooks', {books: books});
+  });
+});
+
 /* Passport function for access control. */
 function ensureAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
