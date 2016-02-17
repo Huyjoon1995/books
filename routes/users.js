@@ -39,29 +39,38 @@ router.post('/register', function(req, res, next) {
         password2: password2
       });
     // if there are no errors, create new user with User Model
+  }
+
+  User.getUserByUsername(username, function(err, data) {
+    if(data) {
+      req.flash('success', 'This user already exists');
+      res.redirect('/users/register');
     } else {
-      var newUser = new User({
-        username: username,
-        password: password,
-        fullName: '',
-        city: '',
-        state: '',
-        favoriteQuote: ''
-      });
-    }
-
-  // Save the new user to the database
-  User.createUser(newUser, function(err, user) {
-    if (err) throw err;
-    console.log(user);
-
-    // automatically log new user in
-    req.login(user, function(err) {
-      if (err) { return next(err); }
-      req.flash('success', 'You are now registered!');
-      return res.redirect('/');
-    });
+        var newUser = new User({
+          username: username,
+          password: password,
+          fullName: '',
+          city: '',
+          state: '',
+          favoriteQuote: ''
+        });
+        // Save the new user to the database
+        User.createUser(newUser, function(err, user) {
+          if (err) throw err;
+          console.log(user);
+          // automatically log new user in
+          req.login(user, function(err) {
+            if (err) { return next(err); }
+            req.flash('error', 'You are now registered!');
+            return res.redirect('/users/profile');
+          });
+        });
+      }
   });
+});
+
+router.get('/profile', function(req, res, next) {
+  res.render('profile');
 });
 
 /* Passport functions. Don't touch these */
