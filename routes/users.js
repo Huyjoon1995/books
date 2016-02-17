@@ -71,7 +71,25 @@ router.post('/register', function(req, res, next) {
 
 router.get('/profile', function(req, res, next) {
   User.getUserByUsername(req.user.username, function(err, user) {
+    if (err) throw err;
     res.render('profile', {'userInfo': user});
+  });
+});
+
+router.post('/profile', function(req, res, next) {
+  var fullName = req.body.fullname || req.user.fullName,
+      city = req.body.city || req.user.city,
+      state = req.body.state || req.user.state,
+      favoriteQuote = req.body.quote || req.user.favoriteQuote;
+
+  User.updateUser(req.user._id, {
+    fullName: fullName,
+    city: city,
+    state: state,
+    favoriteQuote: favoriteQuote
+  }, function(err, user) {
+    if (err) throw err;
+    res.redirect('/users/profile');
   });
 });
 

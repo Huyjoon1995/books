@@ -7,9 +7,23 @@ block content
     hr
     div.col-xs-6(style="background: #ada7a7; border-radius: 5px")
       p.lead Your Username: #{userInfo.username}
-      p.lead Your Name:
-      p.lead City:
-      p.lead State:
-      p.lead Favorite Quote:
+      p.lead Your Name: #{userInfo.fullName}
+      p.lead City: #{userInfo.city}
+      p.lead State: #{userInfo.state}
+      p.lead Favorite Quote: #{userInfo.favoriteQuote}
     div.col-xs-6(style="border-style: dashed")
       p.lead Form to change profile
+      form(method='post', action='/users/profile', enctype='multipart/form-data')
+          .form-group
+              label Edit Full Name
+              input.form-control(name='fullname', type='text', placeholder='e.g. John Smith')
+          .form-group
+              label Edit City
+              input.form-control(name='city', type='text', placeholder='e.g. San Francisco')
+          .form-group
+              label Edit State
+              input.form-control(name='state', type='text', placeholder='e.g. California')
+          .form-group
+              label Edit Favorite Quote
+              input.form-control(name='quote', type='text', placeholder="'The unexamined life is not worth living.'")
+          input.btn.btn-default(name='submit', type='submit', value='Edit Profile')
