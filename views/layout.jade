@@ -46,16 +46,7 @@ html(lang="en")
               li
                 a(href="/users/profile") Profile
     div
-      if error && error.length > 0
-        .alert.alert-danger.alert-dismissible.fade-in(role="alert")
-          button.close(type="button" data-dismiss="alert" aria-label="Close")
-            span(aria-hidden="true") ×
-          p= error
-      if success && success.length > 0
-        .alert.alert-success.alert-dismissible.fade-in(role="alert")
-          button.close(type="button" data-dismiss="alert" aria-label="Close")
-            span(aria-hidden="true") ×
-          p= success
+      !=messages()
       block content
   script(src='/javascripts/jquery-1.12.0.min.js')
   script(src='/javascripts/bootstrap.js')
