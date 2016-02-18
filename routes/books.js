@@ -57,6 +57,10 @@ router.get('/allbooks', function(req, res, next) {
   });
 });
 
+router.get('/requests', function(req, res, next) {
+  res.render('requests');
+});
+
 /* Passport function for access control. */
 function ensureAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
