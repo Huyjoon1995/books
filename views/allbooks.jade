@@ -5,11 +5,19 @@ block content
     h1 All Books
     p.lead Browse the community and request their books!
     hr
+    .row
     if books.length > 0
       each book, i in books
-        div.row
-          div.col-xs-4
-            p #{book.title}
+        .col-xs-12.col-sm-6.col-md-4
+          .thumbnail
+            img(src="#{book.thumbnail}", alt="#{book.title}")
+            .caption
+              h3 #{book.title}
+              p Author(s): #{book.authors}
+              p #{book.pageCount} pages
+              if user
+                p
+                  a.btn.btn-primary(href='/books/request', role='button') Request Now
     else
       p The other registered users haven't added books yet.
       

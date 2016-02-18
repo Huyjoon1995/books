@@ -87,3 +87,7 @@ a {
     overflow: hidden;
     color: #f8f8f8;
 }
+
+.thumbnail {
+  height: 450px;
+}
