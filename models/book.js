@@ -7,7 +7,8 @@ var BookSchema = mongoose.Schema({
   thumbnail: String,
   owner: String,
   requestedBy: Array,
-  isAvailable: Boolean
+  isAvailable: Boolean,
+  currentBorrower: String
 });
 
 var Book = module.exports = mongoose.model('Book', BookSchema);

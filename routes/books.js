@@ -31,7 +31,8 @@ router.post('/addbook', function(req, res, next) {
     thumbnail: req.body.thumbnail,
     owner: req.user.username,
     requestedBy: [],
-    isAvailable: true
+    isAvailable: true,
+    currentBorrower: ''
   });
   Book.saveBook(newBook, function(err, book) {
     if (err) throw err;
