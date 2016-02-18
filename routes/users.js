@@ -19,11 +19,14 @@ router.get('/register', function(req, res, next) {
 router.post('/register', function(req, res, next) {
   // Validate the for before registering
   var username = req.body.username,
+      email = req.body.email,
       password = req.body.password,
       password2 = req.body.password2;
 
   // form validation
   req.checkBody('username', 'Username is required').notEmpty();
+  req.checkBody('email', 'Email field is required').notEmpty();
+  req.checkBody('email', 'Email is not valid').isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
@@ -35,6 +38,7 @@ router.post('/register', function(req, res, next) {
       res.render('register', {
         errors: errors,
         username: username,
+        email: email,
         password: password,
         password2: password2
       });
@@ -47,11 +51,13 @@ router.post('/register', function(req, res, next) {
       } else {
           var newUser = new User({
             username: username,
+            email: email,
             password: password,
             fullName: '',
             city: '',
             state: '',
-            favoriteQuote: ''
+            favoriteQuote: '',
+            messages: []
           });
           // Save the new user to the database
           User.createUser(newUser, function(err, user) {
@@ -78,12 +84,14 @@ router.get('/profile', function(req, res, next) {
 
 router.post('/profile', function(req, res, next) {
   var fullName = req.body.fullname || req.user.fullName,
+      email = req.body.email || req.user.email,
       city = req.body.city || req.user.city,
       state = req.body.state || req.user.state,
       favoriteQuote = req.body.quote || req.user.favoriteQuote;
 
   User.updateUser(req.user._id, {
     fullName: fullName,
+    email: email,
     city: city,
     state: state,
     favoriteQuote: favoriteQuote
