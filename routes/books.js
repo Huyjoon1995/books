@@ -4,6 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var books = require('google-books-search');
 var Book = require('../models/book');
+var moment = require('moment');
 
 router.get('/mybooks', ensureAuthenticated, function(req, res, next) {
   Book.getUserBooks({owner: req.user.username}, function(err, books) {
@@ -59,6 +60,21 @@ router.get('/allbooks', function(req, res, next) {
 
 router.get('/requests', function(req, res, next) {
   res.render('requests');
+});
+
+router.post('/requests', function(req, res, next) {
+  function Request(user, date, status) {
+    this.user = user;
+    this.date = date;
+    this.status = status;
+  }
+
+  var newRequest = new Request(req.user.username, moment().format('MMMM DD, YYYY'), 'pending');
+
+  Book.addRequest(req.body.id, {$push: {requestedBy: newRequest}}, function(err, data) {
+    if (err) throw err;
+    res.redirect('/books/requests');
+  });
 });
 
 /* Passport function for access control. */

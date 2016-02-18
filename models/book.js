@@ -24,3 +24,7 @@ module.exports.getUserBooks = function(query, callback) {
 module.exports.deleteBook = function(query, callback) {
   Book.findByIdAndRemove(query, callback);
 };
+
+module.exports.addRequest = function(id, update, callback) {
+  Book.findByIdAndUpdate(id, update, callback);
+};
