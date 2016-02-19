@@ -59,7 +59,11 @@ router.get('/allbooks', function(req, res, next) {
 });
 
 router.get('/requests', function(req, res, next) {
-  res.render('requests');
+  var myRequests = {requestedBy: {$elemMatch: {user: req.user.username}}};
+  Book.getUserBooks(myRequests, function(err, books) {
+    if (err) throw err;
+    res.render('requests', {books: books});
+  });
 });
 
 router.post('/requests', function(req, res, next) {

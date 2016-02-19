@@ -8,5 +8,10 @@ block content
     h1 Your Requests
     p.lead This is a list of the requests you have made. You can delete your requests at any time.
     hr
+    if books.length > 0
+      each book, i in books
+        p #{book.title}
+    else
+      p You haven't requested any books yet.
     h2 Messages
     p.lead If your request was accepted, you'll hear about it here. You'll also get the contact details of the owner so that you can get in touch to trade books!
