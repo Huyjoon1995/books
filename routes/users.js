@@ -75,7 +75,7 @@ router.post('/register', function(req, res, next) {
   }
 });
 
-router.get('/profile', function(req, res, next) {
+router.get('/profile', ensureAuthenticated, function(req, res, next) {
   User.getUserByUsername(req.user.username, function(err, user) {
     if (err) throw err;
     res.render('profile', {'userInfo': user});
@@ -131,6 +131,15 @@ passport.use(new LocalStrategy(
       });
     });
 }));
+
+/* Passport function for access control. */
+function ensureAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next();
+  }
+ req.flash('info','Please sign in or register to view this page.');
+ res.redirect('/users/register');
+}
 
 /* Logout the current user */
 router.get('/logout', function(req, res) {

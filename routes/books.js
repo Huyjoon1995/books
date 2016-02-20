@@ -58,7 +58,7 @@ router.get('/allbooks', function(req, res, next) {
   });
 });
 
-router.get('/requests', function(req, res, next) {
+router.get('/requests', ensureAuthenticated, function(req, res, next) {
   var myRequests = {requestedBy: {$elemMatch: {user: req.user.username}}};
   var othersRequests = {owner: {$eq: req.user.username}, 'requestedBy.0': {$exists: true}};
 

@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/', passport.authenticate('local', {failureRedirect: '/', failureFlash: 'Invalid Username or Password'}), function(req, res) {
   console.log('Authentication successful');
   req.flash('success', 'You are logged in');
-  res.redirect('/users/profile');
+  res.redirect('/books/mybooks');
 });
 
 module.exports = router;
