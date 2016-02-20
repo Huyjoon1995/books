@@ -16,7 +16,10 @@ block content
     hr
     if mine.length > 0
       each book, i in mine
-        p #{book.title}
+        each item in book.requestedBy
+          - var requested = (item.user == user.username)
+          if requested
+            p= "Your request for " + book.title + " is still " + item.status
     else
       p You haven't requested any books yet.
     h2 Messages
