@@ -19,7 +19,7 @@ block content
     else
       p Nobody has requested any of your books yet.
     h1 Your Requests
-    p.lead This is a list of the requests you have made. You can delete your requests at any time.
+    p.lead This is a list of the requests you have made. You can view the status of your request. 
     hr
     if mine.length > 0
       each book, i in mine
@@ -30,6 +30,8 @@ block content
     else
       p You haven't requested any books yet.
     h2 Messages
+    p.lead If someone has accepted your request, you'll get their contact info here.
+    hr
     each note, i in notes.messages
       p= note
         
