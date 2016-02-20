@@ -28,7 +28,6 @@ router.post('/addbook', function(req, res, next) {
   var newBook = new Book({
     title: req.body.title,
     authors: req.body.authors,
-    pageCount: req.body.pageCount,
     thumbnail: req.body.thumbnail,
     owner: req.user.username,
     requestedBy: [],
@@ -58,8 +57,10 @@ router.get('/allbooks', function(req, res, next) {
   });
 });
 
+// pick up here, trying to display my requests and other requests
 router.get('/requests', function(req, res, next) {
   var myRequests = {requestedBy: {$elemMatch: {user: req.user.username}}};
+  var othersRequests = {owner: {$ne: req.user.username}, 'requestedBy.0': {$exists: true}};
   Book.getUserBooks(myRequests, function(err, books) {
     if (err) throw err;
     res.render('requests', {books: books});

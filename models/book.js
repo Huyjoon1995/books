@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var BookSchema = mongoose.Schema({
   title: String,
   authors: Array,
-  pageCount: Number,
   thumbnail: String,
   owner: String,
   requestedBy: Array,

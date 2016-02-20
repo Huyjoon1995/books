@@ -30,7 +30,6 @@ block content
                 .caption
                   h3 #{result.title}
                   p Author(s): #{result.authors}
-                  p #{result.pageCount} pages
                 form(method="post", action="/books/addbook", enctype="multipart/form-data")
                     input(type="hidden", value="#{result.title}", name="title")
                     input(type="hidden", value="#{result.authors}", name="authors")
