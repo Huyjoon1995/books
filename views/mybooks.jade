@@ -6,12 +6,13 @@ block content
     p.lead These are all of the books in your collection!
     hr
     .row
-    if books
-      each book, i in books
-        .col-xs-6
-          p #{book.title}
-        .col-xs-6
-          a.btn.btn-danger.btn-sm(href="/books/delete/#{book._id}", role="button") Remove
+      if books
+        each book, i in books
+          .col-xs-3
+            p #{book.title}
+          .col-xs-2.col-xs-offset-1
+            a.btn.btn-danger.btn-sm(href="/books/delete/#{book._id}", role="button") Remove
+    
     h1 Add New Book
     p.lead Add a new book to your collection by using the form below.
     hr
