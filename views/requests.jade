@@ -30,4 +30,6 @@ block content
     else
       p You haven't requested any books yet.
     h2 Messages
-    p.lead If your request was accepted, you'll hear about it here. You'll also get the contact details of the owner so that you can get in touch to trade books!
+    each note, i in notes.messages
+      p= note
+        

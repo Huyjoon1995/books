@@ -66,7 +66,10 @@ router.get('/requests', function(req, res, next) {
     if (err) throw err;
     Book.getUserBooks(othersRequests, function(err, theirs) {
       if (err) throw err;
-      res.render('requests', {mine: mine, theirs: theirs});
+      User.getUserByUsername(req.user.username, function(err, notes) {
+        if (err) throw err;
+        res.render('requests', {mine: mine, theirs: theirs, notes: notes});
+      });
     });
   });
 });
