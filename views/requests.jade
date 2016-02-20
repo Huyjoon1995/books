@@ -5,11 +5,16 @@ block content
     h1 Requests
     p.lead These people want to read your books. Accept or reject their request. If more than one person has requested the same book, then you can only accept a single request. All remaining requests will automatically be rejected. 
     hr
+    if theirs.length > 0
+      each book, i in theirs
+        p #{book.title}
+    else
+      p You haven't requested any books yet.
     h1 Your Requests
     p.lead This is a list of the requests you have made. You can delete your requests at any time.
     hr
-    if books.length > 0
-      each book, i in books
+    if mine.length > 0
+      each book, i in mine
         p #{book.title}
     else
       p You haven't requested any books yet.

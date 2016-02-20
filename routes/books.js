@@ -57,13 +57,16 @@ router.get('/allbooks', function(req, res, next) {
   });
 });
 
-// pick up here, trying to display my requests and other requests
 router.get('/requests', function(req, res, next) {
   var myRequests = {requestedBy: {$elemMatch: {user: req.user.username}}};
-  var othersRequests = {owner: {$ne: req.user.username}, 'requestedBy.0': {$exists: true}};
-  Book.getUserBooks(myRequests, function(err, books) {
+  var othersRequests = {owner: {$eq: req.user.username}, 'requestedBy.0': {$exists: true}};
+
+  Book.getUserBooks(myRequests, function(err, mine) {
     if (err) throw err;
-    res.render('requests', {books: books});
+    Book.getUserBooks(othersRequests, function(err, theirs) {
+      if (err) throw err;
+      res.render('requests', {mine: mine, theirs: theirs});
+    });
   });
 });
 
