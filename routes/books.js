@@ -4,6 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var books = require('google-books-search');
 var Book = require('../models/book');
+var User = require('../models/user');
 var moment = require('moment');
 
 router.get('/mybooks', ensureAuthenticated, function(req, res, next) {
@@ -102,14 +103,18 @@ router.get('/accept', function(req, res, next) {
       user = req.query.user,
       query = {_id: id, "requestedBy.user": user},
       query2 = {_id: id, "requestedBy.status": 'is pending'},
-      update = {$set: {"requestedBy.$.status": 'was accepted'}},
-      update2 = {$set: {"requestedBy.$.status": 'was rejected'}};
+      update = {$set: {"requestedBy.$.status": 'was accepted'}, isAvailable: false},
+      update2 = {$set: {"requestedBy.$.status": 'was rejected'}},
+      message = req.user.username + ' has accepted your book request. Contact them at ' + req.user.email + ' to arrange the trade. Happy reading!';
 
   Book.updateRequest(query, update, function(err, data) {
     if (err) throw err;
     Book.updateRequest(query2, update2, function(err, data2) {
       if (err) throw err;
-      res.redirect('/books/requests');
+      User.addMessage({username: user}, {$push: {messages: message}}, function(err, message) {
+        if (err) throw err;
+        res.redirect('/books/requests');
+      });
     });
   });
 

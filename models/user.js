@@ -34,6 +34,10 @@ module.exports.getUserByUsername = function(username, callback) {
   User.findOne(query, callback);
 };
 
+module.exports.addMessage = function(query, update, callback) {
+  User.update(query, update, callback);
+};
+
 module.exports.createUser = function(newUser, callback) {
     bcrypt.hash(newUser.password, 10, function(err, hash) {
         if (err) throw err;
