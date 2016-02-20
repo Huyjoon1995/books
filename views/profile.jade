@@ -17,17 +17,17 @@ block content
       form(method='post', action='/users/profile', enctype='multipart/form-data')
           .form-group
               label Edit Full Name
-              input.form-control(name='fullname', type='text', placeholder='e.g. John Smith')
+              input.form-control(name='fullname', type='text', placeholder='e.g. John Smith', autocomplete="off")
           .form-group
               label Edit Email
-              input.form-control(name='email', type='text', placeholder='john.smith@gmail.com')
+              input.form-control(name='email', type='text', placeholder='john.smith@gmail.com', autocomplete="off")
           .form-group
               label Edit City
-              input.form-control(name='city', type='text', placeholder='e.g. San Francisco')
+              input.form-control(name='city', type='text', placeholder='e.g. San Francisco', autocomplete="off")
           .form-group
-              label Edit State
-              input.form-control(name='state', type='text', placeholder='e.g. California')
+              label Edit State/Country
+              input.form-control(name='state', type='text', placeholder='e.g. California', autocomplete="off")
           .form-group
               label Edit Favorite Quote
-              input.form-control(name='quote', type='text', placeholder="'The unexamined life is not worth living.'")
+              input.form-control(name='quote', type='text', placeholder="'The unexamined life is not worth living.'", autocomplete="off")
           input.btn.btn-default(name='submit', type='submit', value='Edit Profile')

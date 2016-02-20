@@ -24,7 +24,7 @@ html(lang="en")
           form.navbar-form.navbar-right(method='post', action='/', enctype='multipart/form-data')
             if !user
               .form-group
-                input.form-control(name="username", type="text", placeholder="Username")
+                input.form-control(name="username", type="text", placeholder="Username", autocomplete="off")
               .form-group
                 input.form-control(name="password", type="password", placeholder="Password")
               button.btn.btn-success(name="submit", type="submit", id="layoutsigninbtn") Sign in

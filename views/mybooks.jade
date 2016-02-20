@@ -19,7 +19,7 @@ block content
     form(method="post", action="/books/mybooks", enctype="multipart/form-data")
         .form-group
             label Book Title
-            input.form-control(name="title", type="text", placeholder="Book Title, e.g. Moby Dick")
+            input.form-control(name="title", type="text", placeholder="Book Title, e.g. Moby Dick", autocomplete="off")
         input.btn.btn-primary(name="submit", type="submit", value="Search")
     div.row
       if results
