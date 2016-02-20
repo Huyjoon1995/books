@@ -77,9 +77,21 @@ router.post('/requests', function(req, res, next) {
     this.status = status;
   }
 
-  var newRequest = new Request(req.user.username, moment().format('MMMM DD, YYYY'), 'pending');
+  var newRequest = new Request(req.user.username, moment().format('MMMM DD, YYYY'), 'is pending');
 
   Book.addRequest(req.body.id, {$push: {requestedBy: newRequest}}, function(err, data) {
+    if (err) throw err;
+    res.redirect('/books/requests');
+  });
+});
+
+router.get('/reject', function(req, res, next) {
+  var id = req.query.id,
+      user = req.query.user,
+      query = {_id: id, "requestedBy.user": user},
+      update = {$set: {"requestedBy.$.status": 'rejected'}};
+
+  Book.updateRequest(query, update, function(err, data) {
     if (err) throw err;
     res.redirect('/books/requests');
   });

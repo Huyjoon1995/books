@@ -8,7 +8,13 @@ block content
     if theirs.length > 0
       each book, i in theirs
         each item in book.requestedBy
-          p= item.user + "'s request for " + book.title + " is still " + item.status
+          .row
+            .col-xs-6
+              p= item.user + "'s request for " + book.title + " is still " + item.status
+            .col-xs-1
+              a.btn.btn-success.btn-sm(href="/books/accept?id=#{book._id}&user=#{item.user}", role="button") Accept
+            .col-xs-1
+              a.btn.btn-danger.btn-sm(href="/books/reject?id=#{book._id}&user=#{item.user}", role="button") Reject
     else
       p You haven't requested any books yet.
     h1 Your Requests

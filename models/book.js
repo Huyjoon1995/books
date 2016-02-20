@@ -27,3 +27,7 @@ module.exports.deleteBook = function(query, callback) {
 module.exports.addRequest = function(id, update, callback) {
   Book.findByIdAndUpdate(id, update, callback);
 };
+
+module.exports.updateRequest = function(query, update, callback) {
+  Book.update(query, update, callback);
+};
