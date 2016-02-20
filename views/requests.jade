@@ -8,15 +8,16 @@ block content
     if theirs.length > 0
       each book, i in theirs
         each item in book.requestedBy
-          .row
-            .col-xs-6
-              p= item.user + "'s request for " + book.title + " is still " + item.status
-            .col-xs-1
-              a.btn.btn-success.btn-sm(href="/books/accept?id=#{book._id}&user=#{item.user}", role="button") Accept
-            .col-xs-1
-              a.btn.btn-danger.btn-sm(href="/books/reject?id=#{book._id}&user=#{item.user}", role="button") Reject
+          if item.status == 'is pending'
+            .row
+              .col-xs-6
+                p= item.user + "'s request for " + book.title + " " + item.status
+              .col-xs-1
+                a.btn.btn-success.btn-sm(href="/books/accept?id=#{book._id}&user=#{item.user}", role="button") Accept
+              .col-xs-1
+                a.btn.btn-danger.btn-sm(href="/books/reject?id=#{book._id}&user=#{item.user}", role="button") Reject
     else
-      p You haven't requested any books yet.
+      p Nobody has requested any of your books yet.
     h1 Your Requests
     p.lead This is a list of the requests you have made. You can delete your requests at any time.
     hr
@@ -25,7 +26,7 @@ block content
         each item in book.requestedBy
           - var requested = (item.user == user.username)
           if requested
-            p= "Your request for " + book.title + " is still " + item.status
+            p= "Your request for " + book.title + " " + item.status
     else
       p You haven't requested any books yet.
     h2 Messages

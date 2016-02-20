@@ -89,12 +89,31 @@ router.get('/reject', function(req, res, next) {
   var id = req.query.id,
       user = req.query.user,
       query = {_id: id, "requestedBy.user": user},
-      update = {$set: {"requestedBy.$.status": 'rejected'}};
+      update = {$set: {"requestedBy.$.status": 'was rejected'}};
 
   Book.updateRequest(query, update, function(err, data) {
     if (err) throw err;
     res.redirect('/books/requests');
   });
+});
+
+router.get('/accept', function(req, res, next) {
+  var id = req.query.id,
+      user = req.query.user,
+      query = {_id: id, "requestedBy.user": user},
+      query2 = {_id: id, "requestedBy.status": 'is pending'},
+      update = {$set: {"requestedBy.$.status": 'was accepted'}},
+      update2 = {$set: {"requestedBy.$.status": 'was rejected'}};
+
+  Book.updateRequest(query, update, function(err, data) {
+    if (err) throw err;
+    Book.updateRequest(query2, update2, function(err, data2) {
+      if (err) throw err;
+      res.redirect('/books/requests');
+    });
+  });
+
+
 });
 
 /* Passport function for access control. */
