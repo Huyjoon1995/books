@@ -7,7 +7,8 @@ block content
     hr
     if theirs.length > 0
       each book, i in theirs
-        p #{book.title}
+        each item in book.requestedBy
+          p= item.user + "'s request for " + book.title + " is still " + item.status
     else
       p You haven't requested any books yet.
     h1 Your Requests
